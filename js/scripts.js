@@ -105,7 +105,7 @@ theGame.attack(theGame.turn + 3);
 // theGame.attack(theGame.turn + 8);
 
 console.log(theGame.players);
-
+  currentlocation = "menu";
 $(document).ready(function() {
   var counter = 0;
   var squatcounter = false;
@@ -121,12 +121,15 @@ $(document).ready(function() {
       counter = 0;
     }
 
-    var start = new Area("menu",["enter"])
-    var entrance = new Area("entrance",["enter","look"])
-    var mortus = new Area("mortus",["talk","look","attack"])
-    var mortus2 = new Area("mortus2",["yes", "no", "party"])
-    var mortus3 = new Area("mortus3",["follow"])
-    var gym = new Area("gym",["look", "talk mortus"," walk cafeteria", "walk barracks", "squat"])
+    var start = new Area("menu",["enter"]);
+    var entrance = new Area("entrance",["enter","look"]);
+    var mortus = new Area("mortus",["talk","look","attack"]);
+    var mortus2 = new Area("mortus2",["yes", "no", "party"]);
+    var mortus3 = new Area("mortus3",["follow"]);
+    var gym = new Area("gym",["look", "talk Mortus"," walk cafeteria", "walk barracks", "squat"]);
+    var cafeteria = new Area("cafe",["look","talk VapeBro","punch VapeBro","walk barracks", "walk gym"]);
+    var barracks = new Area("barracks",["look","talk ChestBro","enter arena", "walk cafeteria", "walk gym"]);
+    var fight1 = new Area("fight1",[]);
 
     if(currentlocation === "menu")
     {
@@ -134,7 +137,7 @@ $(document).ready(function() {
       {
         userInput = "";
         currentlocation = entrance.location1;
-        $("#output").append("<br>" + "You're at the entrance to the Arena Barracks. (Type list to look at all possible actions)" + "<br>");
+        $("#output").append("<br>" + "You're at the entrance to the Arena. (Type list to look at all possible actions)" + "<br>");
       }
       else if(userInput === "list")
       {
@@ -204,6 +207,10 @@ $(document).ready(function() {
         $("#output").append("<br>" + "Type Enter to reset game." + "<br>");
 
         currentlocation = "menu";
+      }
+      else if(userInput === "look")
+      {
+        $("#output").append("<br>" + "Like I said, he's just a chill dude in a robe. Probably a magaician of some sort." + "<br>");
       }
       else if(userInput === "list")
       {
@@ -328,12 +335,37 @@ $(document).ready(function() {
         $("#output").append("<br>" + "There are a ton of weights, and some big guys lifting. Mortus is chilling next to a water fountain. A squat rack stands out to me. Might have to hit that." + "<br>");
 
       }
-      if(userInput === "squat")
+      else if(userInput === "squat")
       {
         userInput = "";
-        $("#output").append("<br>" + "You rack up 265 pounds on the rack. Mortus spots you and you rep out three sets of ten." + "<br>");
-        $("#output").append("<br>" + "Your quads are burning, but you just gained one strength point!" + "<br>");
-
+        if(squatcounter == false)
+        {
+          $("#output").append("<br>" + "You rack up 265 pounds on the rack. Mortus spots you and you rep out three sets of ten." + "<br>");
+          $("#output").append("<br>" + "Your quads are burning, but you just gained one strength point!" + "<br>");
+          squatcounter = true;
+        }
+        else
+        {
+          $("#output").append("<br>" + "Your legs are too tired to squat again... Bummer..." + "<br>");
+        }
+      }
+      else if(userInput === "talk mortus")
+      {
+        userInput = "";
+        $("#output").append("<br>" + "Me: Sah dude" + "<br>");
+        $("#output").append("<br>" + "Mortus: Ha asah dude" + "<br>");
+      }
+      else if(userInput === "walk cafeteria")
+      {
+        userInput = "";
+        currentlocation = cafeteria.location1;
+        $("#output").append("<br>" + "You walk to the cafeteria" + "<br>");
+      }
+      else if(userInput === "walk barracks")
+      {
+        userInput = "";
+        currentlocation = barracks.location1;
+        $("#output").append("<br>" + "You walk to the barracks" + "<br>");
       }
       else if(userInput === "list")
       {
@@ -343,6 +375,145 @@ $(document).ready(function() {
           $("#output").append("<br>");
           $("#output").append(gym.commands[i]);
         }
+      }
+      else if(userInput === "")
+      {
+
+      }
+      else
+      {
+        $("#output").append("<br>" + "This is not a command I recognize." + "<br>");
+      }
+    }
+
+    if(currentlocation === cafeteria.location1)
+    {
+      if(userInput === "look")
+      {
+        $("#output").append("<br>" + "It's a standard grungy cafeteria. Food looks pretty gross, a bunch of empty protein shakers are scattered on nearby tables. There is a VapeBro in the corner, smoking his vape. He looks somewhat hostile." + "<br>");
+
+      }
+      else if(userInput === "talk vapebro")
+      {
+          $("#output").append("<br>" + "Me: Sup." + "<br>");
+          $("#output").append("<br>" + "VapeBro: Off my grill. I'm trying to vape, bro." + "<br>");
+          $("#output").append("<br>" + "Me: Sheesh. Chill out." + "<br>");
+          $("#output").append("<br>" + "VapeBro: Get outta here." + "<br>");
+      }
+
+      else if(userInput === "punch vapebro")
+      {
+          $("#output").append("<br>" + "Me: You try to punch VapeBro in the nose." + "<br>");
+          $("#output").append("<br>" + "VapeBro blocks your punch with his vape. He blows vape on you." + "<br>");
+          $("#output").append("<br>" + "His Vape lowers your health by five points. Ouch!" + "<br>");
+      }
+
+      else if(userInput === "walk gym")
+      {
+        userInput = "";
+        currentlocation = gym.location1;
+        $("#output").append("<br>" + "You walk to the gym" + "<br>");
+      }
+
+      else if(userInput === "walk barracks")
+      {
+        userInput = "";
+        currentlocation = barracks.location1;
+        $("#output").append("<br>" + "You walk to the barracks" + "<br>");
+      }
+
+      else if(userInput === "list")
+      {
+        $("#output").append("Your possible commands are as follows:");
+        for(var i = 0; i < cafeteria.commands.length; i++)
+        {
+          $("#output").append("<br>");
+          $("#output").append(cafeteria.commands[i]);
+        }
+      }
+      else if(userInput === "")
+      {
+
+      }
+      else
+      {
+        $("#output").append("<br>" + "This is not a command I recognize." + "<br>");
+      }
+    }
+
+    if(currentlocation === barracks.location1)
+    {
+      if(userInput === "look")
+      {
+        $("#output").append("<br>" + "I'm in a military style bed room. ChestBro is knocking out some pushups. I can see where I could enter into the Arena." + "<br>");
+      }
+      else if(userInput === "talk chestbro")
+      {
+          $("#output").append("<br>" + "Me: Yo, what's up?" + "<br>");
+          $("#output").append("<br>" + "ChestBro: Need more gains." + "<br>");
+          $("#output").append("<br>" + "Me: I feel you." + "<br>");
+      }
+
+      else if(userInput === "walk gym")
+      {
+        userInput = "";
+        currentlocation = gym.location1;
+        $("#output").append("<br>" + "You walk to the gym" + "<br>");
+      }
+
+      else if(userInput === "walk cafeteria")
+      {
+        userInput = "";
+        currentlocation = cafeteria.location1;
+        $("#output").append("<br>" + "You walk to the cafeteria" + "<br>");
+      }
+
+      else if(userInput === "enter arena")
+      {
+        userInput = "";
+        currentlocation = fight1.location1;
+        $("#output").append("<br>" + "You enter the arena." + "<br>");
+
+        $("#output").append("<br>" + "The wind is crisp. You're a bit nervous, but this is your destiny. You must become King Bro." + "<br>");
+
+        $("#output").append("<br>" + "Do you want to fight SkateBro, or VapeBro?" + "<br>");
+      }
+
+
+      else if(userInput === "list")
+      {
+        $("#output").append("Your possible commands are as follows:");
+        for(var i = 0; i < barracks.commands.length; i++)
+        {
+          $("#output").append("<br>");
+          $("#output").append(barracks.commands[i]);
+        }
+      }
+      else if(userInput === "")
+      {
+
+      }
+      else
+      {
+        $("#output").append("<br>" + "This is not a command I recognize." + "<br>");
+      }
+    }
+
+    if(currentlocation === fight1.location1)
+    {
+      if(userInput === "skatebro")
+      {
+        userInput = "";
+        $("#output").append("<br>" + "You just chose to fight SkateBro." + "<br>");
+      }
+      else if(userInput === "vapebro")
+      {
+        userInput = "";
+        $("#output").append("<br>" + "You just chose to fight VapeBro." + "<br>");
+      }
+      else if(userInput === "list")
+      {
+        $("#output").append("<br>" + "Your commands are obviously either SkateBro or VapeBro. Seriously.");
       }
       else if(userInput === "")
       {
