@@ -1,6 +1,6 @@
 
 var currentlocation = "menu";
-
+var character = "";
 function Area(location1, commands)
 {
   this.location1 = location1;
@@ -8,10 +8,9 @@ function Area(location1, commands)
 }
 
 //Backend
-var names = ["Brotimus", "Skate Bro", "Vape Bro", "Chest Bro", "Squat Bro", "Zombie Bro", "Dragon Bro", "Mortus", "Bro Hobbit Bobby"];
+var names = ["Brotimus", "SkateBro", "VapeBro", "ChestBro", "SquatBro", "ZombieBro", "DragonBro", "Mortus", "BroHobbit Bobby"];
 function Game(){
-  // this.potion = 100;
-  this.turn = 0;
+  this.opponent = 0;
   this.players = [];
 }
 
@@ -23,10 +22,6 @@ function Player(name, type){
   this.attackMax = 0;
   this.playerType = type;
 }
-
-// Game.prototype.addHealth = function (){
-//   this.players[0].currentHP += theGame.potion
-// }
 
 Game.prototype.attack = function(opponent){
   this.players[opponent].currentHP -= (Math.floor(Math.random() * (this.players[0].attackMax - this.players[0].attackMin + 1)) + this.players[0].attackMin);
@@ -83,14 +78,41 @@ Player.prototype.settingPlayer = function(){
 var theGame = new Game();
 theGame.setUpAllPlayers();
 
-// theGame.attack(1); //attacks skatebro
+var battle = function(){
+    theGame.attack(theGame.opponent);
+  if(theGame.players[0].currentHP <= 0){
+    $("#output").append("<br>" + names[theGame.opponent] + " beat you." + "<br>");
+    $(this).hide();
+    $("#health").text(0);
+    $("#main-button").show();
+    theGame.players[theGame.opponent].currentHP = theGame.players[theGame.opponent].hp;
+    $("#enemyhealth").text(theGame.players[theGame.opponent].currentHP);
+    return;
+  }else if(theGame.players[theGame.opponent].currentHP <= 0){
+    $("#output").append("<br>" +  "You beat " + names[theGame.opponent] + "." + "<br>");
+    $(this).hide();
+    $("#enemyhealth").text(0);
+    $("#main-button").show();
+    theGame.players[0].currentHP = theGame.players[0].hp;
+    $("#health").text(theGame.players[0].currentHP);
+    return;
+  }
+  $("#health").text(theGame.players[0].currentHP);
+  $("#enemyhealth").text(theGame.players[theGame.opponent].currentHP);
+}
 
-// console.log(theGame.players); //debugging
-
-
+var battlePrep = function(character){
+  $("#"+character).show();
+  $("#main-button").hide();
+  $("#output").append("<br>" + "You just chose to fight " + names[theGame.opponent] + "." + "<br>");
+  $("#health").text(theGame.players[0].currentHP);
+  $("#enemyhealth").text(theGame.players[theGame.opponent].currentHP);
+  $("#"+character).click(battle);
+}
 console.log(theGame.players);
   currentlocation = "menu";
 $(document).ready(function() {
+
   var counter = 0;
   var squatcounter = false;
   $("form").submit(function(event) {
@@ -114,7 +136,7 @@ $(document).ready(function() {
     var cafeteria = new Area("cafe",["look","talk VapeBro","punch VapeBro","walk barracks", "walk gym"]);
     var barracks = new Area("barracks",["look","talk ChestBro","enter arena", "walk cafeteria", "walk gym"]);
     var fight1 = new Area("fight1",[]);
-
+    currentlocation = fight1.location1//for debugging purposes to skip to the fight
     if(currentlocation === "menu")
     {
       if(userInput === "enter")
@@ -523,13 +545,17 @@ $(document).ready(function() {
     {
       if(userInput === "skatebro")
       {
+        character = userInput;
         userInput = "";
-        $("#output").append("<br>" + "You just chose to fight SkateBro." + "<br>");
+        theGame.opponent = 1;
+        battlePrep(character);
       }
       else if(userInput === "vapebro")
       {
+        character = userInput;
         userInput = "";
-        $("#output").append("<br>" + "You just chose to fight VapeBro." + "<br>");
+        theGame.opponent = 2;
+        battlePrep(character);
       }
       else if(userInput === "list")
       {

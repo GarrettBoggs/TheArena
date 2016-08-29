@@ -25,3 +25,7 @@ h4 {
   border-radius: 5px
 
 }
+
+#skatebro, #vapebro{
+  display: none;
+}

@@ -13,6 +13,7 @@
       <ul>
         <li>BroArena</li>
         <li>Health:<span id="health"></span></li>
+        <li>Opponent Health:<span id="enemyhealth"></span></li>
         <li>Score:<span id="score"></span></li>
       </ul>
       <br>
@@ -28,12 +29,15 @@
 
       <h3>Type Enter to start the game<h3>
 
-      <form id="new-contact">
+      <form>
         <div class="form-group">
           <input type="text" class="form-control" id="input">
           <br>
         </div>
-        <button type="submit" class="btn btn-danger">Enter</button>
+        <button id="main-button" type="submit" class="btn btn-danger">Enter</button>
+        <button id="skatebro" class="btn btn-danger">Attack again</button>
+        <button id="vapebro" class="btn btn-danger">Attack again</button>
+
       </form>
 
       <ul id="output">
