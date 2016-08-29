@@ -5,11 +5,39 @@
     <link rel="stylesheet" href="css/styles.css" media="screen" title="no title" charset="utf-8">
     <script src="js/jquery-3.1.0.min.js"></script>
     <script src="js/scripts.js"></script>
-    <title></title>
+    <title>BroArena</title>
   </head>
 
   <body>
-    <ul id="output">
-    </ul>
+    <div class="container">
+      <ul>
+        <li>BroArena</li>
+        <li>Health:<span id="health"></span></li>
+        <li>Score:<span id="score"></span></li>
+      </ul>
+      <br>
+
+      <div class="jumbotron">
+        <h2> Welcome to the <h2>
+        <h1> BroArena! <h1>
+      </div>
+
+      <h4> BroArena is a text based RPG. <strong>Enter list</strong> at any time to display all the possible actions you can make.</h4>
+
+      <h4>You are Brotimus, an aspiring Bro gladiator. You want to become King Bro. The only way to achieve this goal is through combat in the BroArena. Are you tough enough to become the next King Bro?</h4>
+
+      <h3>Typle Enter to start the game<h3>
+
+      <form id="new-contact">
+        <div class="form-group">
+          <input type="text" class="form-control" id="input">
+          <br>
+        </div>
+        <button type="submit" class="btn btn-danger">Enter</button>
+      </form>
+
+      <ul id="output">
+      </ul>
+    </div>
   </body>
 </html>
