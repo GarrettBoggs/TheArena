@@ -157,6 +157,7 @@ var battle = function(){
       }
     return;
   }
+  $("#output").append("<br>" + "You attacked " + names[theGame.opponent] + " and now have " + theGame.players[0].currentHP + " health and he has " + theGame.players[theGame.opponent].currentHP +" health")
   $("#health").text(theGame.players[0].currentHP);
   $("#enemyhealth").text(theGame.players[theGame.opponent].currentHP);
 }
@@ -171,7 +172,7 @@ var battlePrep = function(){
   $("#attack-button").on("click",battle);
 }
 
-  currentlocation = "fight2";
+  currentlocation = "menu";
 
 $(document).ready(function() {
   $("#health").text(theGame.players[0].currentHP);
@@ -179,6 +180,8 @@ $(document).ready(function() {
   $("#score").text(theGame.score);
   $("#current").text("BroTopia"); //maybe could put else where
   var counter = 0;
+  var punchCounter = 0;
+  var stewCounter = 0;
   var squatcounter = false;
   var redbull = false;
   var armwrestle = false;
@@ -506,11 +509,17 @@ $(document).ready(function() {
 
       else if(userInput === "punch vapebro")
       {
+        if(punchCounter<2){
           theGame.players[0].lostHp(5);
           $("#health").text(theGame.players[0].currentHP);
           $("#output").append("<br>" + "Me: You try to punch VapeBro in the nose." + "<br>");
           $("#output").append("<br>" + "VapeBro blocks your punch with his vape. He blows vape on you." + "<br>");
           $("#output").append("<br>" + "His vape lowers your health by five points. Ouch!" + "<br>");
+          punchCounter++;
+        }else {
+          $("#output").append("<br>" + "Really? Are you trying to get lung cancer?" + "<br>");
+        }
+
       }
 
       else if(userInput === "walk gym")
@@ -762,10 +771,16 @@ $(document).ready(function() {
 
       else if(userInput === "eat stew")
       {
+        if(stewCounter<2){
           $("#output").append("<br>" + "You take a mouthful of stew and vomit everywhere. The floor is now coated in a thin layer of vomit." + "<br>");
           $("#output").append("<br>" + "You lose five hitpoints." + "<br>");
           theGame.players[0].lostHp(5);
           $("#health").text(theGame.players[0].currentHP);
+          stewCounter++;
+        }else{
+          $("#output").append("<br>" + "Are you really that hungry? Death by soup is a sad way to go." + "<br>");
+        }
+
       }
 
       else if(userInput === "walk gym")
@@ -965,7 +980,9 @@ $(document).ready(function() {
           $("#output").append("<br>" + "Bobby slams your fist to the table. A jolt of pain arcs up your wrist." + "<br>");
           $("#output").append("<br>" + "Bobby: Weakling." + "<br>");
           $("#output").append("<br>" + "You lost, but you feel stronger." + "<br>");
-            $("#output").append("<br>" + "You gain one strength point." + "<br>");
+          $("#output").append("<br>" + "You gain one strength point." + "<br>");
+          theGame.players[0].addStrengthPoint();
+          $("#strength").text(theGame.players[0].attackMax);
           armwrestle = true;
         }
         else
@@ -1035,6 +1052,8 @@ $(document).ready(function() {
           $("#output").append("<br>" + "You rack up 350 pounds." + "<br>");
           $("#output").append("<br>" + "As you go for a new personal best, you feel a twinge in your back." + "<br>");
           $("#output").append("<br>" + "Ouch! You just pulled a muscle. You lost 10 health points." + "<br>");
+          theGame.players[0].lostHp(10);
+          $("#health").text(theGame.players[0].currentHP);
       }
       else if(userInput === "walk cafeteria")
       {
@@ -1193,12 +1212,14 @@ $(document).ready(function() {
         userInput = "";
         currentlocation = gym4.location1;
         $("#output").append("<br>" + "You walk to the gym" + "<br>");
+        $("#current").text("The Gym");
       }
       else if(userInput === "walk cafeteria")
       {
         fighting = false;
         userInput = "";
         currentlocation = cafeteria4.location1;
+        $("#current").text("The Grub Hub");
         $("#output").append("<br>" + "You walk to the cafeteria" + "<br>");
       }
       else if(userInput === "enter arena")
@@ -1243,13 +1264,12 @@ $(document).ready(function() {
         userInput = "";
         $("#output").append("<br>" + "You do some low-key calf raises." + "<br>");
         $("#output").append("<br>" + "You realize that calf raises are pointless." + "<br>");
-        }
       }
-
       else if(userInput === "walk cafeteria")
       {
         userInput = "";
         currentlocation = cafeteria4.location1;
+        $("#current").text("The Grub Hub");
         $("#output").append("<br>" + "You walk to the cafeteria" + "<br>");
       }
       else if(userInput === "walk barracks")
@@ -1257,6 +1277,7 @@ $(document).ready(function() {
         userInput = "";
         currentlocation = barracks4.location1;
         $("#output").append("<br>" + "You walk to the barracks" + "<br>");
+        $("#current").text("The Barracks");
       }
       else if(userInput === "list")
       {
@@ -1311,6 +1332,7 @@ $(document).ready(function() {
         userInput = "";
         currentlocation = gym4.location1;
         $("#output").append("<br>" + "You walk to the gym" + "<br>");
+        $("#current").text("The Gym");
       }
 
       else if(userInput === "walk barracks")
@@ -1318,6 +1340,8 @@ $(document).ready(function() {
         userInput = "";
         currentlocation = barracks4.location1;
         $("#output").append("<br>" + "You walk to the barracks" + "<br>");
+        $("#current").text("The Barracks");
+
       }
 
       else if(userInput === "list")
