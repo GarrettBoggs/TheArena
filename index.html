@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="css/styles.css" media="screen" title="no title" charset="utf-8">
     <script src="js/jquery-3.1.0.min.js"></script>
@@ -21,7 +22,6 @@
         <h2> Welcome to the <h2>
         <h1> Bro-Arena! <h1>
       </div>
-
       <div class="row">
         <div class="col-sm-6">
           <h4> BroArena is a text based RPG. Enter <strong>list</strong> at any time to display all the possible actions you can make.</h4>
@@ -30,17 +30,16 @@
           <h4>You are Brotimus, an aspiring Bro gladiator. You want to become King Bro. The only way to achieve this goal is through combat in the BroArena. Are you tough enough to become the next King Bro?</h4>
         </div>
       </div>
+      <div>
         <h3>Type Enter to start the game<h3>
-
+      </div>
         <form>
           <div class="form-group">
             <input type="text" class="form-control" id="input">
-            <br>
           </div>
           <button id="main-button" type="submit" class="btn btn-danger">Enter</button>
           <button id="skatebro" class="btn btn-danger">Attack again</button>
           <button id="vapebro" class="btn btn-danger">Attack again</button>
-
         </form>
 
         <ul id="output">

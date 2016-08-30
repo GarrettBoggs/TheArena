@@ -1,9 +1,10 @@
 body {
-  background: linear-gradient(#4d4d4d, black);
-  padding: 20px 0 0 0;
+  background-image:linear-gradient(#4d4d4d, black);
+  background-position: bottom;
+  background-repeat: no-repeat;
+  padding-top: 60px;
   color: white;
 }
-
 li {
   display: inline;
   margin-left: 50px;
@@ -11,15 +12,16 @@ li {
 }
 
 h3 {
-  text-shadow: 3px 2px 4px  #b30000;
+  text-shadow: 3px 2px 4px #b30000;
 }
 
 h4 {
   font-style: italic;
   text-align: center;
   width: auto;
-  padding: 10px;
-  margin: 10px;
+  border-style:
+  padding: 8px;
+  margin: 8px;
   border-radius: 5px;
   background-color: white;
   color: black;
@@ -28,6 +30,9 @@ h4 {
 strong {
   color: red;
   text-decoration: underline;
+}
+.container {
+  max-width: 2000px;
 }
 .jumbotron {
   text-align: center;
@@ -50,7 +55,10 @@ strong {
   background-color: #262626;
   color: white;
 }
-
+#output {
+  font-size: 26px;
+  text-shadow: 1px 3px 7px #b30000;
+}
 #skatebro, #vapebro{
   display: none;
 }
