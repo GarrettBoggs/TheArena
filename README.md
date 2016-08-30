@@ -17,8 +17,8 @@ Any questions or issues contact one of us below
 
 * yusuf9191@gmail.com - Backend questions
 * andrewfishersb@gmail.com - Backend
-*
-*
+* there emails
+* there emails
 
 ##Specifications
 * It will progress the game based on what text you enter.

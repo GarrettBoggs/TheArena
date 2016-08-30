@@ -12,6 +12,7 @@ var names = ["Brotimus", "SkateBro", "VapeBro", "ChestBro", "SquatBro", "ZombieB
 function Game(){
   this.opponent = 0;
   this.players = [];
+  this.score = 0;
 }
 
 function Player(name, type){
@@ -39,10 +40,14 @@ Player.prototype.addStrengthPoint = function(){
   this.attackMin++;
   this.attackMax++;
 }
+
+Player.prototype.lostHp = function(damage){
+    this.currentHP -=damage;
+}
+
 Player.prototype.settingPlayer = function(){
   if(this.playerType === 0){
     this.hp = 100;
-
     this.currentHP = 100;
     this.attackMin = 8;
     this.attackMax = 12;
@@ -78,6 +83,9 @@ Player.prototype.settingPlayer = function(){
 var theGame = new Game();
 theGame.setUpAllPlayers();
 
+
+//start of front end
+// but not fighting when win or lose
 var battle = function(){
     theGame.attack(theGame.opponent);
   if(theGame.players[0].currentHP <= 0){
@@ -91,7 +99,8 @@ var battle = function(){
   }else if(theGame.players[theGame.opponent].currentHP <= 0){
     $("#output").append("<br>" +  "You beat " + names[theGame.opponent] + "." + "<br>");
     $(this).hide();
-    $("#enemyhealth").text(0);
+    $("#current").text("Barracks"); // merge conflict here
+    $("#enemyhealth").text("");// merge conflict here
     $("#main-button").show();
     theGame.players[0].currentHP = theGame.players[0].hp;
     $("#health").text(theGame.players[0].currentHP);
@@ -107,16 +116,21 @@ var battlePrep = function(character){
   $("#output").append("<br>" + "You just chose to fight " + names[theGame.opponent] + "." + "<br>");
   $("#health").text(theGame.players[0].currentHP);
   $("#enemyhealth").text(theGame.players[theGame.opponent].currentHP);
+  $("#current").text(names[theGame.opponent] + "'s Health: ");
   $("#"+character).click(battle);
 }
-console.log(theGame.players);
+
   currentlocation = "gym2";
 $(document).ready(function() {
-
+  $("#health").text(theGame.players[0].currentHP);
+  $("#strength").text(theGame.players[0].attackMax);
+  $("#score").text(theGame.score);
+  $("#current").text("BroTopia"); //maybe could put else where
   var counter = 0;
   var squatcounter = false;
   var redbull = false;
   $("form").submit(function(event) {
+    event.preventDefault();
     var userInput = $("#input").val().toLowerCase();
     $("form")[0].reset();
 
@@ -145,7 +159,7 @@ $(document).ready(function() {
     var cafeteria2 = new Area("cafe2",["look","talk Mortus","eat stew","walk barracks", "walk gym"]);
     var barracks2 = new Area("barracks2",["look", "walk cafeteria", "walk gym"]);
 
-
+currentlocation = fight1.location1;
     if(currentlocation === "menu")
     {
       if(userInput === "enter")
@@ -359,6 +373,8 @@ $(document).ready(function() {
           $("#output").append("<br>" + "You rack up 265 pounds on the rack. Mortus spots you and you rep out three sets of ten." + "<br>");
           $("#output").append("<br>" + "Your quads are burning, but you just gained one strength point!" + "<br>");
           squatcounter = true;
+          theGame.player[0].addStrengthPoint();
+          $("#strength").text(theGame.player[0].attackMax);
         }
         else
         {
@@ -419,6 +435,8 @@ $(document).ready(function() {
 
       else if(userInput === "punch vapebro")
       {
+          theGame.players[0].lostHp(5);
+          $("#health").text(theGame.players[0].currentHP);
           $("#output").append("<br>" + "Me: You try to punch VapeBro in the nose." + "<br>");
           $("#output").append("<br>" + "VapeBro blocks your punch with his vape. He blows vape on you." + "<br>");
           $("#output").append("<br>" + "His vape lowers your health by five points. Ouch!" + "<br>");
@@ -519,9 +537,11 @@ $(document).ready(function() {
     {
       if(userInput === "skatebro")
       {
+
         character = userInput;
         userInput = "";
         theGame.opponent = 1;
+        // $("#current-opponent").text(names[theGame.opponent] + "'s Health: ");
         battlePrep(character);
       }
       else if(userInput === "vapebro")
@@ -601,20 +621,24 @@ $(document).ready(function() {
       {
         if(redbull == false)
         {
+          console.log(theGame.players[0].attackMax);
           $("#output").append("<br>" + "Me: Hey Mortus!" + "<br>");
           $("#output").append("<br>" + "Mortus: Hey! Congrats on the win!" + "<br>");
           $("#output").append("<br>" + "Me: For sure! I'm coming for you!" + "<br>");
           $("#output").append("<br>" + "Mortus: Bring it, kid! I have a turtle with your name on it...." + "<br>");
           $("#output").append("<br>" + "Mortus throws you a Red Bull" + "<br>");
           $("#output").append("<br>" + "Mortus: Drink up! You need to keep up the energy." + "<br>");
-          $("#output").append("<br>" + "You drink the Red Bull and get 1 strength!" + "<br>");
+          $("#output").append("<br>" + "You drink the Red Bull and get 1 strength point!" + "<br>");
+          theGame.players[0].addStrengthPoint();
+          console.log(theGame.players[0].attackMax);
+          $("#strength").text(theGame.players[0].attackMax);
           redbull = true;
         }
         else
         {
-          $("#output").append("<br>" + "Mortus: Red Bull gives you wings.")
-          $("#output").append("<br>" + "Your stomach feels a bit off.")
-          $("#output").append("<br>" + "Me: And some bad gas.")
+          $("#output").append("<br>" + "Mortus: Red Bull gives you wings.");
+          $("#output").append("<br>" + "Your stomach feels a bit off.");
+          $("#output").append("<br>" + "Me: And some bad gas.");
         }
       }
 
@@ -622,7 +646,8 @@ $(document).ready(function() {
       {
           $("#output").append("<br>" + "You take a bite of stew and vomit everywhere. The floor is now coated in a thin layer of vomit." + "<br>");
           $("#output").append("<br>" + "You lose five hitpoints." + "<br>");
-
+          theGame.players[0].lostHp(5);
+          $("#health").text(theGame.players[0].currentHP);
       }
 
       else if(userInput === "walk gym")
@@ -746,6 +771,6 @@ $(document).ready(function() {
         $("#output").append("<br>" + "This is not a command I recognize." + "<br>");
       }
     }
-    event.preventDefault();
+
   });
 });

@@ -13,12 +13,13 @@ h4 {
   margin: 10px;
   box-shadow: 1px 1px 1px black;
   border-radius: 5px
-
 }
+
 .jumbotron {
   text-align: center;
   border-radius: 5px
 }
+
 #status {
  list-style-type: none;
  margin: 0;
@@ -27,6 +28,6 @@ h4 {
  background-color: lightgray;
 }
 
-#skatebro, #vapebro{
+#skatebro, #vapebro, #squatbro, #chestbro, #zombiebro, #dragonbro, #mortus, #brohobbit-bobby{
   display: none;
 }
