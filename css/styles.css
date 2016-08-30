@@ -28,6 +28,9 @@ h4 {
  background-color: lightgray;
 }
 
-#skatebro, #vapebro, #squatbro, #chestbro, #zombiebro, #dragonbro, #mortus, #brohobbit-bobby{
+/*#skatebro, #vapebro, #squatbro, #chestbro, #zombiebro, #dragonbro, #mortus, #brohobbit-bobby, #retreat{
+  display: none;
+}*/
+#attack-button, #retreat{
   display: none;
 }
