@@ -36,6 +36,7 @@ Game.prototype.setUpAllPlayers = function(){
     this.players.push(myPlayer);
   }
 }
+
 Player.prototype.addStrengthPoint = function(){
   this.attackMin++;
   this.attackMax++;
@@ -55,7 +56,7 @@ Player.prototype.settingPlayer = function(){
     this.hp = Math.floor(Math.random() * (50 - 25 + 1)) + 25;
     this.currentHP = this.hp;
     this.attackMin = 3;
-    this.attackMax = 7;
+    this.attackMax = 5;
   }else if(this.playerType === 3 || this.playerType ===  4){
     this.hp = Math.floor(Math.random() * (65 - 51 + 1)) + 51;
     this.currentHP = this.hp;
@@ -87,28 +88,31 @@ theGame.setUpAllPlayers();
 //start of front end
 // but not fighting when win or lose
 var battle = function(){
-    theGame.attack(theGame.opponent);
-  if(theGame.players[0].currentHP <= 0){
+  theGame.attack(theGame.opponent);
+  if(theGame.players[0].currentHP <= 0){ //Failure
+    $("#attack-button").off("click",battle);
     $("#output").append("<br>" + names[theGame.opponent] + " beat you." + "<br>");
     $(this).hide();
-    $("#health").text(0);
     $("#main-button").show();
     theGame.players[theGame.opponent].currentHP = theGame.players[theGame.opponent].hp;
-    $("#enemyhealth").text(theGame.players[theGame.opponent].currentHP);
+    theGame.players[0].currentHP = theGame.players[0].hp;
+    $("#health").text(theGame.players[0].currentHP);
+    $("#current").text("The Barracks");
+    $("#enemyhealth").text("");
     if(theGame.opponent == 1 || theGame.opponent == 2)
     {
       currentlocation = "barracks";
     }
     return;
-  }else if(theGame.players[theGame.opponent].currentHP <= 0){
+  }else if(theGame.players[theGame.opponent].currentHP <= 0){ //Success
+    $("#attack-button").off("click",battle);
     $("#output").append("<br>" +  "You beat " + names[theGame.opponent] + "." + "<br>");
     $(this).hide();
-    $("#current").text("Barracks"); // merge conflict here
-    $("#enemyhealth").text("");// merge conflict here
+    $("#current").text("The Barracks");
+    $("#enemyhealth").text("");
     $("#main-button").show();
     theGame.players[0].currentHP = theGame.players[0].hp;
     $("#health").text(theGame.players[0].currentHP);
-
       if(theGame.opponent == 1)
       {
         $("#output").append("SkateBro yells: No! Everybody always hatin' on the skater.");
@@ -129,14 +133,14 @@ var battle = function(){
   $("#enemyhealth").text(theGame.players[theGame.opponent].currentHP);
 }
 
-var battlePrep = function(character){
-  $("#"+character).show();
+var battlePrep = function(){
+  $("#attack-button").show();
   $("#main-button").hide();
   $("#output").append("<br>" + "You just chose to fight " + names[theGame.opponent] + "." + "<br>");
   $("#health").text(theGame.players[0].currentHP);
   $("#enemyhealth").text(theGame.players[theGame.opponent].currentHP);
   $("#current").text(names[theGame.opponent] + "'s Health: ");
-  $("#"+character).click(battle);
+  $("#attack-button").on("click",battle);
 }
 
   currentlocation = "menu";
@@ -225,6 +229,7 @@ $(document).ready(function() {
         userInput = "";
         currentlocation = mortus.location1;
         $("#output").append("<br>" + "You enter the Arena and see a chill looking dude in a robe." + "<br>");
+        $("#current").text("The Arena");
       }
       else if(userInput === "look")
       {
@@ -363,6 +368,7 @@ $(document).ready(function() {
       {
         userInput = "";
         currentlocation = gym.location1;
+        $("#current").text("The Gym");
         $("#output").append("<br>" + "You follow Mortus. He leads you to the Gym." + "<br>");
         $("#output").append("<br>" + "Mortus: Every bro needs a good gym. Here, you can hang out and lift." + "<br>");
         $("#output").append("<br>" + "Me: Sweet! I'm always looking for a killer leg day." + "<br>");
@@ -404,8 +410,8 @@ $(document).ready(function() {
           $("#output").append("<br>" + "You rack up 265 pounds on the rack. Mortus spots you and you rep out three sets of ten." + "<br>");
           $("#output").append("<br>" + "Your quads are burning, but you just gained one strength point!" + "<br>");
           squatcounter = true;
-          theGame.player[0].addStrengthPoint();
-          $("#strength").text(theGame.player[0].attackMax);
+          theGame.players[0].addStrengthPoint();
+          $("#strength").text(theGame.players[0].attackMax);
         }
         else
         {
@@ -422,12 +428,14 @@ $(document).ready(function() {
       {
         userInput = "";
         currentlocation = cafeteria.location1;
+        $("#current").text("The Grub Hub");
         $("#output").append("<br>" + "You walk to the cafeteria" + "<br>");
       }
       else if(userInput === "walk barracks")
       {
         userInput = "";
         currentlocation = barracks.location1;
+        $("#current").text("The Barracks");
         $("#output").append("<br>" + "You walk to the barracks" + "<br>");
       }
       else if(userInput === "list")
@@ -477,6 +485,7 @@ $(document).ready(function() {
       {
         userInput = "";
         currentlocation = gym.location1;
+        $("#current").text("The Gym");
         $("#output").append("<br>" + "You walk to the gym" + "<br>");
       }
 
@@ -484,6 +493,7 @@ $(document).ready(function() {
       {
         userInput = "";
         currentlocation = barracks.location1;
+        $("#current").text("The Barracks");
         $("#output").append("<br>" + "You walk to the barracks" + "<br>");
       }
 
@@ -523,6 +533,7 @@ $(document).ready(function() {
       {
         userInput = "";
         currentlocation = gym.location1;
+        $("#current").text("The Gym");
         $("#output").append("<br>" + "You walk to the gym" + "<br>");
       }
 
@@ -530,6 +541,7 @@ $(document).ready(function() {
       {
         userInput = "";
         currentlocation = cafeteria.location1;
+        $("#current").text("The Grub Hub");
         $("#output").append("<br>" + "You walk to the cafeteria" + "<br>");
       }
 
@@ -537,6 +549,7 @@ $(document).ready(function() {
       {
         userInput = "";
         currentlocation = fight1.location1;
+        $("#current").text("Gladiator Pit");
         $("#output").append("<br>" + "You enter the arena." + "<br>");
 
         $("#output").append("<br>" + "The wind is crisp. You're a bit nervous, but this is your destiny. You must become King Bro." + "<br>");
@@ -567,21 +580,17 @@ $(document).ready(function() {
     {
       if(userInput === "skatebro")
       {
-
-        character = userInput;
         userInput = "";
         theGame.opponent = 1;
-
         fighting = true;
-        battlePrep(character);
+        battlePrep();
       }
       else if(userInput === "vapebro")
       {
-        character = userInput;
         userInput = "";
         theGame.opponent = 2;
         fighting = true;
-        battlePrep(character);
+        battlePrep();
       }
       else if(userInput === "list")
       {
@@ -614,8 +623,10 @@ $(document).ready(function() {
         $("#output").append("<br>" + "You fall down, stunned." + "<br>");
         $("#output").append("<br>" + "You just lost 80 health points." + "<br>");
         $("#output").append("<br>" + "Bobby walks to the gym, leaving you on the floor." + "<br>");
-
+        theGame.players[0].lostHp(80);
+        $("#health").text(theGame.players[0].currentHP);
         currentlocation = barracks2.location1;
+        $("#current").text("The Barracks");
       }
 
       else if(userInput === "look")
@@ -652,6 +663,7 @@ $(document).ready(function() {
         $("#output").append("<br>" + "Bobby: Chump. You won't last." + "<br>");
         $("#output").append("<br>" + "Bobby walks to the gym, leaving you on the floor." + "<br>");
         currentlocation = barracks2.location1;
+        $("#current").text("The Barracks");
       }
       else if(userInput === "shut up")
       {
@@ -662,7 +674,10 @@ $(document).ready(function() {
 
         $("#output").append("<br>" + "You just lost 20 health points." + "<br>");
         $("#output").append("<br>" + "Bobby walks to the gym, leaving you on the floor." + "<br>");
+        theGame.players[0].lostHp(20);
+        $("#health").text(theGame.players[0].currentHP);
         currentlocation = barracks2.location1;
+        $("#current").text("The Barracks");
       }
 
       else if(userInput === "list")
@@ -694,7 +709,6 @@ $(document).ready(function() {
       {
         if(redbull == false)
         {
-          console.log(theGame.players[0].attackMax);
           $("#output").append("<br>" + "Me: Hey Mortus!" + "<br>");
           $("#output").append("<br>" + "Mortus: Hey! Congrats on the win!" + "<br>");
           $("#output").append("<br>" + "Me: For sure! I'm coming for you!" + "<br>");
@@ -703,7 +717,6 @@ $(document).ready(function() {
           $("#output").append("<br>" + "Mortus: Drink up! You need to keep up the energy." + "<br>");
           $("#output").append("<br>" + "You drink the Red Bull and get 1 strength point!" + "<br>");
           theGame.players[0].addStrengthPoint();
-          console.log(theGame.players[0].attackMax);
           $("#strength").text(theGame.players[0].attackMax);
           redbull = true;
         }
@@ -727,6 +740,7 @@ $(document).ready(function() {
       {
         userInput = "";
         currentlocation = gym2.location1;
+        $("#current").text("The Gym");
         $("#output").append("<br>" + "You walk to the gym" + "<br>");
       }
 
@@ -734,6 +748,7 @@ $(document).ready(function() {
       {
         userInput = "";
         currentlocation = barracks2.location1;
+        $("#current").text("The Barracks");
         $("#output").append("<br>" + "You walk to the barracks" + "<br>");
       }
 
@@ -779,12 +794,14 @@ $(document).ready(function() {
       {
         userInput = "";
         currentlocation = cafeteria2.location1;
+        $("#current").text("The Grub Hub");
         $("#output").append("<br>" + "You walk to the cafeteria." + "<br>");
       }
       else if(userInput === "walk barracks")
       {
         userInput = "";
         currentlocation = barracks2.location1;
+        $("#current").text("The Barracks");
         $("#output").append("<br>" + "You walk to the barracks." + "<br>");
       }
       else if(userInput === "list")
@@ -818,12 +835,14 @@ $(document).ready(function() {
       {
         userInput = "";
         currentlocation = cafeteria2.location1;
+        $("#current").text("The Grub Hub");
         $("#output").append("<br>" + "You walk to the cafeteria." + "<br>");
       }
       else if(userInput === "walk gym")
       {
         userInput = "";
         currentlocation = gym2.location1;
+        $("#current").text("The Gym");
         $("#output").append("<br>" + "You walk to the gym." + "<br>");
       }
 
@@ -831,6 +850,7 @@ $(document).ready(function() {
       {
         userInput = "";
         currentlocation = fight2.location1;
+        $("#current").text("Gladiator Pit");
         $("#output").append("<br>" + "You enter the arena." + "<br>");
 
         $("#output").append("<br>" + "The sky is dark. You wonder if this fight is going to be more challenging." + "<br>");
@@ -865,7 +885,7 @@ $(document).ready(function() {
         userInput = "";
         theGame.opponent = 3;
         fighting = true;
-        battlePrep(character);
+        battlePrep();
       }
       else if(userInput === "squatbro")
       {
@@ -873,7 +893,7 @@ $(document).ready(function() {
         userInput = "";
         theGame.opponent = 4;
         fighting = true;
-        battlePrep(character);
+        battlePrep();
       }
       else if(userInput === "run")
       {
@@ -935,6 +955,7 @@ $(document).ready(function() {
       {
         userInput = "";
         currentlocation = gym2.location1;
+        $("#current").text("The Gym");
         $("#output").append("<br>" + "You walk to the gym" + "<br>");
       }
 
@@ -942,6 +963,7 @@ $(document).ready(function() {
       {
         userInput = "";
         currentlocation = barracks2.location1;
+        $("#current").text("The Barracks");
         $("#output").append("<br>" + "You walk to the barracks" + "<br>");
       }
 
