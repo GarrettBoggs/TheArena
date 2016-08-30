@@ -123,6 +123,21 @@ var battle = function(){
         $("#output").append("<br>" + "Small man: You may have won your first battle. But you are still weak and stupid."+ "<br>");
         currentlocation = "bobby";
       }
+
+      if(theGame.opponent == 3)
+      {
+        $("#output").append("ChestBro: Need... more... gains...");
+        $("#output").append("<br>" + "He collapses on the floor."+ "<br>");
+        $("#output").append("<br>" + "You walk back to the barracks, elated with the rush of victory."+ "<br>");
+        currentlocation = "barracks3";
+      }
+      if(theGame.opponent == 4)
+      {
+        $("#output").append("ChestBro: Need... more... gains...");
+        $("#output").append("<br>" + "He collapses on the floor."+ "<br>");
+        $("#output").append("<br>" + "You walk back to the barracks, elated with the rush of victory."+ "<br>");
+        currentlocation = "barracks3";
+      }
     return;
   }
   $("#health").text(theGame.players[0].currentHP);
@@ -186,10 +201,9 @@ $(document).ready(function() {
     var barracks2 = new Area("barracks2",["look", "walk cafeteria", "walk gym", "enter arena"]);
 
 
-    var gym3 = new Area("gym3",["look", "squat", " walk cafeteria", "walk barracks", "squat"]);
+    var gym3 = new Area("gym3",["look", "squat", " walk cafeteria", "squat", "walk barracks", "squat"]);
     var cafeteria3 = new Area("cafe3",["look","talk bobby","armwrestle","walk barracks", "walk gym"]);
-    var barracks3 = new Area("barracks3",["look", "talk Mortus", "walk gym", "enter arena"]);
-
+    var barracks3 = new Area("barracks3",["look", "talk mortus", "walk gym","walk cafeteria", "enter arena"]);
 
     if(currentlocation === "menu")
     {
@@ -404,7 +418,7 @@ $(document).ready(function() {
           $("#output").append("<br>" + "You rack up 265 pounds on the rack. Mortus spots you and you rep out three sets of ten." + "<br>");
           $("#output").append("<br>" + "Your quads are burning, but you just gained one strength point!" + "<br>");
           squatcounter = true;
-          theGame.player[0].addStrengthPoint();
+          theGame.players[0].addStrengthPoint();
           $("#strength").text(theGame.player[0].attackMax);
         }
         else
@@ -899,6 +913,7 @@ $(document).ready(function() {
 
     if(currentlocation === cafeteria3.location1)
     {
+
       if(userInput === "look")
       {
         $("#output").append("<br>" + "You're at the cafeteria. Bobbing is eating a giant pizza, all by himself." + "<br>");
@@ -907,10 +922,12 @@ $(document).ready(function() {
       {
         if(armwrestle == false)
         {
-          $("#output").append("<br>" + "Me: Sup!" + "<br>");
-          $("#output").append("<br>" + "Bobby: Go away!" + "<br>");
-          $("#output").append("<br>" + "Me: Can I have some pizza?" + "<br>");
-          $("#output").append("<br>" + "Mortus: Bring it, kid! I have a turtle with your name on it...." + "<br>");
+          $("#output").append("<br>" + "Bobby: Come here chump, let's armwrestle." + "<br>");
+          $("#output").append("<br>" + "You armwrestle bobby." + "<br>");
+          $("#output").append("<br>" + "Bobby slams your fist to the table. A jolt of pain arcs up your wrist." + "<br>");
+          $("#output").append("<br>" + "Bobby: Weakling." + "<br>");
+          $("#output").append("<br>" + "You lost, but you feel stronger." + "<br>");
+            $("#output").append("<br>" + "You gain one strength point." + "<br>");
           armwrestle = true;
         }
         else
@@ -934,24 +951,121 @@ $(document).ready(function() {
       else if(userInput === "walk gym")
       {
         userInput = "";
-        currentlocation = gym2.location1;
+        currentlocation = gym3.location1;
         $("#output").append("<br>" + "You walk to the gym" + "<br>");
       }
 
       else if(userInput === "walk barracks")
       {
         userInput = "";
-        currentlocation = barracks2.location1;
+        currentlocation = barracks3.location1;
         $("#output").append("<br>" + "You walk to the barracks" + "<br>");
       }
 
       else if(userInput === "list")
       {
         $("#output").append("Your possible commands are as follows:");
-        for(var i = 0; i < cafeteria2.commands.length; i++)
+        for(var i = 0; i < cafeteria3.commands.length; i++)
         {
           $("#output").append("<br>");
-          $("#output").append(cafeteria2.commands[i]);
+          $("#output").append(cafeteria3.commands[i]);
+        }
+      }
+      else if(userInput === "")
+      {
+
+      }
+      else
+      {
+        $("#output").append("<br>" + "This is not a command I recognize." + "<br>");
+      }
+    }
+
+    if(currentlocation === gym3.location1)
+    {
+      if(userInput === "look")
+      {
+        userInput = "";
+        $("#output").append("<br>" + "Chestbro is doing benchpress. Curlbro looks focused on his curls. All is normal at the gym. The squat rack beckons." + "<br>");
+
+      }
+      else if(userInput === "squat")
+      {
+        userInput = "";
+          $("#output").append("<br>" + "You rack up 350 pounds." + "<br>");
+          $("#output").append("<br>" + "As you go for a new personal best, you feel a twinge in your back." + "<br>");
+          $("#output").append("<br>" + "Ouch! You just pulled a muscle. You lost 10 health points." + "<br>");
+          squatcounter = true;
+          theGame.players[0].addStrengthPoint();
+          $("#strength").text(theGame.player[0].attackMax);
+      }
+      else if(userInput === "walk cafeteria")
+      {
+        userInput = "";
+        currentlocation = cafeteria3.location1;
+        $("#output").append("<br>" + "You walk to the cafeteria" + "<br>");
+      }
+      else if(userInput === "walk barracks")
+      {
+        userInput = "";
+        currentlocation = barracks3.location1;
+        $("#output").append("<br>" + "You walk to the barracks" + "<br>");
+      }
+      else if(userInput === "list")
+      {
+        $("#output").append("Your possible commands are as follows:");
+        for(var i = 0; i < gym3.commands.length; i++)
+        {
+          $("#output").append("<br>");
+          $("#output").append(gym3.commands[i]);
+        }
+      }
+      else if(userInput === "")
+      {
+
+      }
+      else
+      {
+        $("#output").append("<br>" + "This is not a command I recognize." + "<br>");
+      }
+    }
+
+    if(currentlocation === barracks3.location1)
+    {
+      fighting = false;
+      if(userInput === "look")
+      {
+        userInput = "";
+        $("#output").append("<br>" + "Mortus is quietly reading a book on his bed. The title of the Book is: Warscapia." + "<br>");
+      }
+      else if(userInput === "talk mortus")
+      {
+          $("#output").append("<br>" + "Me: Sup" + "<br>");
+          $("#output").append("<br>" + "Mortus: Hey" + "<br>");
+          $("#output").append("<br>" + "Me: That book, Warscapia, is it good?" + "<br>");
+          $("#output").append("<br>" + "Mortus: It's amazing" + "<br>");
+          $("#output").append("<br>" + "Me: What's it about?" + "<br>");
+          $("#output").append("<br>" + "Mortus: Oh, it's just some teen fantasy stuff." + "<br>");
+      }
+      else if(userInput === "walk gym")
+      {
+        userInput = "";
+        currentlocation = gym3.location1;
+        $("#output").append("<br>" + "You walk to the gym" + "<br>");
+      }
+      else if(userInput === "walk cafeteria")
+      {
+        userInput = "";
+        currentlocation = cafeteria3.location1;
+        $("#output").append("<br>" + "You walk to the cafeteria" + "<br>");
+      }
+      else if(userInput === "list")
+      {
+        $("#output").append("Your possible commands are as follows:");
+        for(var i = 0; i < barracks3.commands.length; i++)
+        {
+          $("#output").append("<br>");
+          $("#output").append(barracks3.commands[i]);
         }
       }
       else if(userInput === "")
