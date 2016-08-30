@@ -9,6 +9,13 @@
   </head>
 
   <body>
+    <ul id="status">
+      <li>BroArena</li>
+      <li><img src="img/heart.png" height="23" width="23"/> Health:<span id="health"></span></li>
+      <li><img src="img/heart.png" height="23" width="23"/> Opponent Health:<span id="enemyhealth"></span></li>
+      <li><img src="img/score.png" height="23" width="23"/> Score:<span id="score"></span></li>
+    </ul>
+    <br>
     <div class="container">
       <ul id="status">
         <li>BroArena</li>
@@ -19,28 +26,39 @@
       </ul>
       <br>
 
+
       <div class="jumbotron">
         <h2> Welcome to the <h2>
         <h1> Bro-Arena! <h1>
       </div>
 
-      <h4> BroArena is a text based RPG. Enter <strong>list</strong> at any time to display all the possible actions you can make.</h4>
-
-      <h4>You are Brotimus, an aspiring Bro gladiator. You want to become King Bro. The only way to achieve this goal is through combat in the BroArena. Are you tough enough to become the next King Bro?</h4>
-
-      <h3>Type Enter to start the game<h3>
-
-      <form>
-        <div class="form-group">
-          <input type="text" class="form-control" id="input">
-          <br>
+      <div class="row">
+        <div class="col-sm-6">
+          <h4> BroArena is a text based RPG. Enter <strong>list</strong> at any time to display all the possible actions you can make.</h4>
         </div>
-        <button id="main-button" type="submit" class="btn btn-danger">Enter</button>
-        <button id="attack-button" class="btn btn-danger">Click to Attack</button>
+
 
       </form>
       <ul id="output">
       </ul>
+        <div class="col-sm-6">
+          <h4>You are Brotimus, an aspiring Bro gladiator. You want to become King Bro. The only way to achieve this goal is through combat in the BroArena. Are you tough enough to become the next King Bro?</h4>
+        </div>
+      </div>
+        <h3>Type Enter to start the game<h3>
+
+        <form>
+          <div class="form-group">
+            <input type="text" class="form-control" id="input">
+            <br>
+          </div>
+          <button id="main-button" type="submit" class="btn btn-danger">Enter</button>
+          <button id="attack-button" class="btn btn-danger">Click to Attack</button>
+
+        </form>
+
+        <ul id="output">
+        </ul>
     </div>
   </body>
 </html>
