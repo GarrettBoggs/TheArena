@@ -71,3 +71,7 @@ strong {
 #attack-button, #opponent-heart{
   display: none;
 }
+#win{
+  float: left;
+  margin-bottom: 30px;
+}

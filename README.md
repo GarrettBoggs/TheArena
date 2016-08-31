@@ -17,7 +17,7 @@ Any questions or issues contact one of us below
 
 * yusuf9191@gmail.com - Backend questions
 * andrewfishersb@gmail.com - Backend
-* there emails
+* garrett.boggs@my.wheaton.edu - Frontend/Story
 * there emails
 
 ##Specifications
@@ -26,6 +26,11 @@ Any questions or issues contact one of us below
 **Example Input:** "look"
 
 **Example Output:** "The arena is a grand marble structure. There are a bunch of Miller lite cans littered on the ground."
+
+* You can fight
+**Example Input:** "Click Fight"
+
+**Example Output:** "You attacked SkateBro and now have 97 health and he has 34 health."
 
 ##License Information
 
