@@ -24,7 +24,7 @@ input[type="text"] {
   font: normal 20px/normal "Times New Roman", Times, serif;
   color: white;
   background-color: transparent;
-  /*border-left: 5px solid  #990000;*/
+  margin-top: 20px;
 }
 
 li {
@@ -37,41 +37,49 @@ h3 {
   text-shadow: 3px 2px 4px #b30000;
 }
 
-h4 {
-  font-style: italic;
-  text-align: center;
-  width: auto;
-  height: 150px;
-  padding: 20px;
-  margin: 2px;
-  border-radius: 0;
-  background-color: transparent;;
-  color: white;
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
-}
-
-
 strong {
   color: red;
   text-decoration: underline;
 }
 
-
 .container {
   max-width: 2000px;
 }
 
-.jumbotron {
+.header {
+  font-size: 70px;
+  font-family: Impact, Charcoal, sans-serif;
   text-align: center;
+  text-shadow: 1px 1px black;
   background-image: url("../img/arena.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 420px;
-  background-blend-mode: luminosity;
+  background-size: 400px;
   color: white;
-  text-shadow: 2px 2px 10px  #b30000;
-  background-color: white;
+  background-color: transparent;
+  height: 300px;
+  margin: 20px;
+}
+
+#colomn {
+  font-style: italic;
+  text-align: center;
+  height: 150px;
+  padding: 20px;
+  background-color: transparent;
+  color: white;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+}
+#colomn2 {
+  font-style: italic;
+  text-align: center;
+  height: 150px;
+  padding: 20px;
+  background-color: transparent;
+  color: white;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
 }
 
 #main-button {
@@ -105,7 +113,20 @@ strong {
   font-size: 26px;
   text-shadow: 1px 3px 7px #b30000;
 }
-#attack-button, #opponent-heart{
+#attack-button{
+  display: none;
+  outline: none;
+  border: 0;
+  background-color: #4d0000;
+  height: 50px;
+  width: 70px;
+}
+#attack-button:hover{
+  background-color:  #ff3333;
+  cursor: pointer;
+}
+
+#opponent-heart{
   display: none;
 }
 #win{
