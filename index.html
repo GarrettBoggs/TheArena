@@ -12,41 +12,34 @@
   <body>
     <ul id="status">
       <li>BroArena</li>
-      <li><img src="img/heart.png" height="23" width="23"/>  Health: <span id="health"></span>
-<span id="health"></span></li>
+      <li><img src="img/heart.png" height="23" width="23"/>  Health:<span id="health"></span><span id="health"></span></li>
       <li><img id="opponent-heart" src="img/heart.png" height="23" width="23"/> <span id="current"></span><span id="enemyhealth"></span><span id="enemyhealth"></span></li>
-        <li>Maximum Strength: <span id="strength"></span></li>
+      <li>Maximum Strength: <span id="strength"></span></li>
       <li><img src="img/score.png" height="23" width="23"/> Score: <span id="score"></span><span id="score"></span></li>
     </ul>
     <br>
     <div class="container">
 
-      <br>
 
-      <div class="jumbotron">
-        <h2> Welcome to the <h2>
-        <h1> Bro-Arena! <h1>
+      <div class="header">
+        <p> Welcome to the <p>
+        <p> Bro-Arena! <p>
       </div>
-      <div class="row">
-        <div class="col-sm-6">
+      <div id="colomn">
           <h4> BroArena is a text based RPG. Enter <strong>list</strong> at any time to display all the possible actions you can make.</h4>
         </div>
-
-
-      </form>
-
-        <div class="col-sm-6">
+        <div id="colomn2">
           <h4>You are Brotimus, an aspiring Bro gladiator. You want to become King Bro. The only way to achieve this goal is through combat in the BroArena. Are you tough enough to become the next King Bro?</h4>
         </div>
-      </div>
 
       <div>
-      <h3>Type Start to begin the game<h3>
+        <h3>Type Start to begin the game<h3>
       </div>
+
         <form>
           <input type="text"  id="input" placeholder=">">
           <button id="main-button" type="submit"><img src="img/fight.png" height="20" width="20"/></button>
-          <button id="attack-button" class="btn btn-danger">Click to Attack</button>
+          <button id="attack-button" class="btn btn-danger"><img src="img/attack.png" height="25" width="25"/></button>
         </form>
 
         <ul id="output">
