@@ -10,7 +10,6 @@ function Area(location1, commands)
 function Game(){
   this.opponent = 0;
   this.players = [];
-  this.score = 0;
   this.names = ["Brotimus", "SkateBro", "VapeBro", "ChestBro", "SquatBro", "ZombieBro", "DragonBro", "Mortus", "BroHobbit Bobby"];
 }
 
@@ -67,15 +66,15 @@ Player.prototype.settingPlayer = function(){
     this.attackMin = 13;
     this.attackMax = 18;
   }else if(this.playerType === 7){
-    this.hp = Math.floor(Math.random() * (110 - 90 + 1)) + 90;
+    this.hp = Math.floor(Math.random() * (100 - 90 + 1)) + 90;
     this.currentHP = this.hp;
     this.attackMin = 16;
     this.attackMax = 23;
   }else{ // type 8
-    this.hp = Math.floor(Math.random() * (130 - 110 + 1)) + 110;
+    this.hp = Math.floor(Math.random() * (105 - 100 + 1)) + 100;
     this.currentHP = this.hp;
-    this.attackMin = 20;
-    this.attackMax = 23;
+    this.attackMin = 18;
+    this.attackMax = 25;
   }
 }
 
@@ -129,6 +128,7 @@ var battle = function(){
     {
       $("#output").append("ZombieBro: Moaaan. Must eat brainz... Must be bro... Must keep fighting...");
       $("#output").append("<br>" + "He dies for the second time."+ "<br>");
+      $("#output").append("<br>" + "<img src='img/zombiekill.gif'>" + "<br>");
       $("#output").append("<br>" + "You walk back to the barracks, a bit creeped out about Zombiebro."+ "<br>");
       currentlocation = "barracks4";
     }
@@ -136,6 +136,7 @@ var battle = function(){
     {
       $("#output").append("DragonBro: RAR! NOT COOL. DRAGONBRO WILL RETURN!");
       $("#output").append("<br>" + "He collapses on the floor in a burst of flame."+ "<br>");
+      $("#output").append("<br>" + "<img src='img/dragonslay.gif'>" + "<br>");
       $("#output").append("<br>" + "You walk back to the barracks, elated with the rush of victory."+ "<br>");
       currentlocation = "barracks4";
     }
@@ -218,7 +219,6 @@ var battlePrep = function(){
 $(document).ready(function() {
   $("#health").text(theGame.players[0].currentHP);
   $("#strength").text(theGame.players[0].attackMax);
-  $("#score").text(theGame.score);
   $("#current").text("BroTopia");
 
   var punchCounter = 0;
@@ -235,7 +235,7 @@ $(document).ready(function() {
   var counter = 0;
   $("form").submit(function(event) {
     event.preventDefault();
-    var userInput = $("#input").val().toLowerCase();
+    var userInput = $("#input").val().toLowerCase().trim();
     $("form")[0].reset();
 
     if(fighting == false)
@@ -297,9 +297,23 @@ $(document).ready(function() {
         $("#output").append("<br>" + "You're at the entrance to the Arena. (Type list to look at all possible actions)" + "<br>");
 
       }
+      else if(userInput === "beastmode")
+      {
+        userInput = "";
+        currentlocation = entrance.location1;
+        $("#output").append("<br>" + "Cheat Code unlocked!" + "<br>");
+        $("#output").append("<br>" + "You just went BEASTMODE!" + "<br>");
+        $("#output").append("<br>" + "You just got 20 strength points!" + "<br>");
+        $("#output").append("<br>" + "<img src='img/beastmode.gif'>" + "<br>");
+        for(var i = 0; i < 20; i++)
+        {
+          theGame.players[0].addStrengthPoint();
+        }
+        $("#strength").text(theGame.players[0].attackMax);
+      }
       else if(userInput === "list")
       {
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < start.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -324,7 +338,7 @@ $(document).ready(function() {
       }
       else if(userInput === "list")
       {
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < entrance.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -346,13 +360,9 @@ $(document).ready(function() {
       else if(userInput === "attack")
       {
         $("#output").append("<br>" + "You swing a fist at the stranger, but he dodges and summons a giant snapping turtle. The turtle bites your head off." + "<br>");
-
         $("#output").append("<br>" + "You die horribly in a pool of your own blood. Whoops." + "<br>");
-
         $("#output").append("<br>" + "<img src='img/snapturtle.gif'>" + "<br>");
-
         $("#output").append("<br>" + "You also lost your head. Which kind of sucks too." + "<br>");
-
         $("#output").append("<br>" + "Type start to reset game." + "<br>");
         currentlocation = "menu";
       }
@@ -362,8 +372,7 @@ $(document).ready(function() {
       }
       else if(userInput === "list")
       {
-        $("#output").append("<br>");
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < mortus.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -406,8 +415,7 @@ $(document).ready(function() {
       }
       else if(userInput === "list")
       {
-        $("#output").append("<br>");
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < mortus2.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -432,7 +440,7 @@ $(document).ready(function() {
       }
       else if(userInput === "list")
       {
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < mortus3.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -487,7 +495,7 @@ $(document).ready(function() {
       }
       else if(userInput === "list")
       {
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < gym.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -539,7 +547,7 @@ $(document).ready(function() {
       }
       else if(userInput === "list")
       {
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < cafeteria.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -586,7 +594,7 @@ $(document).ready(function() {
       }
       else if(userInput === "list")
       {
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < barracks.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -652,8 +660,7 @@ $(document).ready(function() {
       else if(userInput === "list")
       {
         fighting = false;
-        $("#output").append("<br>");
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < bobby.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -682,11 +689,8 @@ $(document).ready(function() {
       {
         userInput = "";
         $("#output").append("<br>" + "Me: Shut up, short stuff." + "<br>");
-
         $("#output").append("<br>" + "Bobby smacks you across the face" + "<br>");
-
         $("#output").append("<br>" + "<img src='img/slap.gif'>" + "<br>");
-
         $("#output").append("<br>" + "You just lost 20 health points." + "<br>");
         $("#output").append("<br>" + "Bobby walks to the gym. Your face stings." + "<br>");
         theGame.players[0].lostHp(20);
@@ -696,8 +700,7 @@ $(document).ready(function() {
       }
       else if(userInput === "list")
       {
-        $("#output").append("<br>");
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < bobby2.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -764,7 +767,7 @@ $(document).ready(function() {
       }
       else if(userInput === "list")
       {
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < cafeteria2.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -809,7 +812,7 @@ $(document).ready(function() {
       }
       else if(userInput === "list")
       {
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < gym2.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -856,7 +859,7 @@ $(document).ready(function() {
       else if(userInput === "list")
       {
         fighting = false;
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < barracks2.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -947,7 +950,7 @@ $(document).ready(function() {
       }
       else if(userInput === "list")
       {
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < cafeteria3.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -963,7 +966,6 @@ $(document).ready(function() {
       {
         userInput = "";
         $("#output").append("<br>" + "Chestbro is doing benchpress. Curlbro looks focused on his curls. All is normal at the gym. The squat rack beckons." + "<br>");
-
       }
       else if(userInput === "squat")
       {
@@ -999,7 +1001,7 @@ $(document).ready(function() {
       }
       else if(userInput === "list")
       {
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < gym3.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -1048,6 +1050,7 @@ $(document).ready(function() {
         fighting = false;
         userInput = "";
         currentlocation = fight3.location1;
+        $("#current").text("Gladiator Pit");
         $("#output").append("<br>" + "You enter the arena" + "<br>");
         $("#output").append("<br>" + "In one corner is a bro that appears to be primarily zombie. He has blue skin and is bleeding out of multiple wounds." + "<br>");
         $("#output").append("<br>" + "In the other corner is a DragonBro, a half bro, half-dragon creature that lives only to be more Bro." + "<br>");
@@ -1055,7 +1058,7 @@ $(document).ready(function() {
       else if(userInput === "list")
       {
         fighting = false;
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < barracks3.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -1139,6 +1142,7 @@ $(document).ready(function() {
         fighting = false;
         userInput = "";
         currentlocation = fight4.location1;
+        $("#current").text("Gladiator Pit");
         $("#output").append("<br>" + "You enter the arena" + "<br>");
         $("#output").append("<br>" + "Mortus is staring at me, holding a flaming turtle in his hands." + "<br>");
         $("#output").append("<br>" + "Mortus: Goodbye, old friend." + "<br>");
@@ -1146,7 +1150,7 @@ $(document).ready(function() {
       else if(userInput === "list")
       {
         fighting = false;
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < barracks4.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -1189,7 +1193,7 @@ $(document).ready(function() {
       }
       else if(userInput === "list")
       {
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < gym4.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -1244,7 +1248,7 @@ $(document).ready(function() {
       }
       else if(userInput === "list")
       {
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < cafeteria4.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -1254,7 +1258,6 @@ $(document).ready(function() {
       else if(userInput === "");
       else $("#output").append("<br>" + "This is not a command I recognize." + "<br>");
     }
-
     if(currentlocation === fight4.location1)
     {
       if(userInput === "mortus")
@@ -1265,7 +1268,7 @@ $(document).ready(function() {
         fighting = true;
         battlePrep(character);
       }
-      if(userInput === "fight")
+      else if(userInput === "fight")
       {
         character = userInput;
         userInput = "";
@@ -1273,7 +1276,7 @@ $(document).ready(function() {
         fighting = true;
         battlePrep(character);
       }
-      if(userInput === "fight mortus")
+      else if(userInput === "fight mortus")
       {
         character = userInput;
         userInput = "";
@@ -1281,7 +1284,6 @@ $(document).ready(function() {
         fighting = true;
         battlePrep(character);
       }
-
       else if(userInput === "run")
       {
         $("#output").append("<br>" + "Even against mortus, you won't run." + "<br>");
@@ -1297,7 +1299,6 @@ $(document).ready(function() {
       else if(userInput === "");
       else $("#output").append("<br>" + "This is not a command I recognize." + "<br>");
     }
-
     if(currentlocation === moment.location1)
     {
       if(userInput === "talk")
@@ -1307,7 +1308,7 @@ $(document).ready(function() {
         $("#output").append("<br>" + "Me: What, are you serious?"+ "<br>");
           $("#output").append("<br>" + "Mortus: It is the way of the Arena...");
       }
-      else if(userInput === "kill")
+      else if(userInput === "kill" || userInput === "finish him")
       {
         fighting = false;
         userInput = "";
@@ -1316,7 +1317,6 @@ $(document).ready(function() {
         $("#output").append("<br>" + "You exit the arena, head filled with conflicting thoughts." + "<br>");
         currentlocation = barracks5.location1;
       }
-
       else if(userInput === "save")
       {
         fighting = false;
@@ -1327,12 +1327,10 @@ $(document).ready(function() {
         $("#output").append("<br>" + "You walk back to the barracks. You wonder if Mortus was just testing you..." + "<br>");
         currentlocation = barracks5.location1;
       }
-
       else if(userInput === "list")
       {
         fighting = false;
-        $("#output").append("<br>");
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < moment.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -1346,7 +1344,6 @@ $(document).ready(function() {
         $("#output").append("<br>" + "This is not a command I recognize." + "<br>");
       }
     }
-
     if(currentlocation === barracks5.location1)
     {
       if(userInput === "look")
@@ -1378,6 +1375,7 @@ $(document).ready(function() {
         fighting = false;
         userInput = "";
         currentlocation = fight5.location1;
+        $("#current").text("Gladiator Pit");
         $("#output").append("<br>" + "You enter the arena" + "<br>");
         $("#output").append("<br>" + "BroHobbit Bobby is scowling at me." + "<br>");
         $("#output").append("<br>" + "Bobby: Weakling! Prepare to die!" + "<br>");
@@ -1391,7 +1389,6 @@ $(document).ready(function() {
         $("#output").append("<br>" + "You walk to the gym" + "<br>");
         $("#current").text("The Gym");
       }
-
       else if(userInput === "walk cafeteria")
       {
         fighting = false;
@@ -1400,11 +1397,10 @@ $(document).ready(function() {
         $("#output").append("<br>" + "You walk to the cafeteria" + "<br>");
         $("#current").text("The Grub Hub");
       }
-
       else if(userInput === "list")
       {
         fighting = false;
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < barracks5.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -1417,9 +1413,7 @@ $(document).ready(function() {
         fighting = false;
         $("#output").append("<br>" + "This is not a command I recognize." + "<br>");
       }
-
     }
-
     if(currentlocation === cafeteria5.location1)
     {
       if(userInput === "look")
@@ -1427,7 +1421,6 @@ $(document).ready(function() {
         userInput = "";
         $("#output").append("<br>" + "SkateBro is hanging out, trying to pull off a grind on the cafeteria table." + "<br>");
       }
-
       if(userInput == "talk skatebro")
       {
         if(skatecounter === false)
@@ -1446,7 +1439,6 @@ $(document).ready(function() {
           $("#output").append("<br>" + "SkateBro already showed me how to skate." + "<br>");
         }
       }
-
       else if(userInput === "walk gym")
       {
         userInput = "";
@@ -1463,7 +1455,7 @@ $(document).ready(function() {
       }
       else if(userInput === "list")
       {
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < cafeteria5.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -1473,7 +1465,6 @@ $(document).ready(function() {
       else if(userInput === "");
       else $("#output").append("<br>" + "This is not a command I recognize." + "<br>");
     }
-
     if(currentlocation === gym5.location1)
     {
       if(userInput === "look")
@@ -1504,7 +1495,7 @@ $(document).ready(function() {
       }
       else if(userInput === "list")
       {
-        $("#output").append("Your possible commands are as follows:");
+        $("#output").append("<br>" + "Your possible commands are as follows:");
         for(var i = 0; i < gym5.commands.length; i++)
         {
           $("#output").append("<br>");
@@ -1515,7 +1506,6 @@ $(document).ready(function() {
       else $("#output").append("<br>" + "This is not a command I recognize." + "<br>");
 
     }
-
     if(currentlocation === fight5.location1)
     {
       if(userInput === "fight")
@@ -1532,7 +1522,6 @@ $(document).ready(function() {
         fighting = true;
         battlePrep();
       }
-
       else if(userInput === "turtles")
       {
         $("#output").append("<br>" + "Not the right time for that command." + "<br>");
@@ -1548,7 +1537,6 @@ $(document).ready(function() {
       else if(userInput === "");
       else $("#output").append("<br>" + "This is not a command I recognize." + "<br>");
     }
-
     if(currentlocation === last.location1)
     {
       turtleCounter += 1;
@@ -1561,8 +1549,9 @@ $(document).ready(function() {
           $("#output").append("<br>" + "Me: Sure!" + "<br>");
           $("#output").append("<br>" + "You exit the arena, satisfied with the battle, the glory, and the chance to hang out with your bro Mortus." + "<br>");
           $("#output").append("<br>" + "~The End~" + "<br>");
-
           $("#output").append("<br>" + "<img id='win' src='img/winGame.gif'>" + "<br>");
+          $("#input").hide();
+          $("#main-button").hide();
           fighting = false;
       }
       else if(userInput === "");
@@ -1582,7 +1571,6 @@ $(document).ready(function() {
           $("#output").append("<br>" + "Maybe you should have spared the bro?" + "<br>");
           $("#output").append("<br>" + "You die on the cold arena floor." + "<br>");
           $("#output").append("<br>" + "~Game Over, brah! Better luck next time~" + "<br>");
-
           $("#output").append("<br>" + "<img src='img/lostGame.gif'>" + "<br>");
           currentlocation = "menu";
         }

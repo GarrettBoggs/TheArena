@@ -4,7 +4,8 @@ html body {
   background-repeat: no-repeat;
   padding-top: 60px;
   color: white;
-  height: 1300px;
+  height: 1500px;
+
 }
 
 input[type="text"]:focus {
