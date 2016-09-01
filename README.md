@@ -4,7 +4,7 @@ _By Garrett Boggs, Andrew Fisher, Yusuf Qedan, Alvaro Flores_
 
 ## Description
 
-This site uses objects to create a pizza service. Created using HTML, CSS, JavaScript, jQuery, and Bootstrap framework.
+This site offers a fun arena battle game for players to explores. Created using HTML, CSS, JavaScript, jQuery, and Bootstrap framework.
 
 ## Setup instruction
 
