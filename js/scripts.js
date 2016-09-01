@@ -71,7 +71,7 @@ Player.prototype.settingPlayer = function(){
     this.attackMin = 16;
     this.attackMax = 23;
   }else{ // type 8
-    this.hp = Math.floor(Math.random() * (105 - 100 + 1)) + 100;
+    this.hp = Math.floor(Math.random() * (105 - 95 + 1)) + 95;
     this.currentHP = this.hp;
     this.attackMin = 18;
     this.attackMax = 25;
@@ -1562,7 +1562,7 @@ $(document).ready(function() {
         $("#output").append("<br>" + "You bleed out, shot down by the Evil Hobbit by the name of Bobby." + "<br>");
         if(saveMortus)
         {
-          $("#output").append("<br>" + "You resapwn in the barracks." + "<br>");
+          $("#output").append("<br>" + "You respawn in the barracks." + "<br>");
           currentlocation = "barracks5";
         }
         else

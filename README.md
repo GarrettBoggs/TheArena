@@ -9,7 +9,7 @@ This site uses objects to create a pizza service. Created using HTML, CSS, JavaS
 ## Setup instruction
 
 Have connection to the internet and capabilities to open a webpage
-Open via the ghpages at:
+Open via the ghpages at: [https://garrettboggs.github.io/TheArena/](https://garrettboggs.github.io/TheArena/)
 
 
 ## Contact Information
